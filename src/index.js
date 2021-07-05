@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./assets/style.css";
 import quizAPI from "./quizAPI";
 import QuestionBox from './components/QuestionBox';
+import Result from './components/Result';
 
 class CountriesQuiz extends Component {
   state = {
@@ -35,6 +36,14 @@ class CountriesQuiz extends Component {
     })
   };
 
+  playAgain = () => {
+    this.getQuestions();
+    this.setState({
+      score: 0,
+      responses: 0
+    })
+  };
+
   render() {
     return (
       <div className="container">
@@ -49,7 +58,7 @@ class CountriesQuiz extends Component {
             selected={(textAnswer) => this.checkAnswer(textAnswer, correct)}
           />
         )}
-      { this.state.responses === 3 ? (<h2>{this.state.score}</h2>): null }
+      { this.state.responses === 3 ? (<Result score={this.state.score} playAgain={this.playAgain}/>): null }
 
       </div>
     );
